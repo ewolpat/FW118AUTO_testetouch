@@ -19,15 +19,49 @@
 int cont_process = 0;
 int cont_motor = 0;
 //int cont_quant = 0;
+int contTeste;
+
+char desacopla;
+char contDesliga;
 
 
 void Timer1(void) // timer de 1 ms
 {
-  controle_UART_RX();
+  //controle_UART_RX();
 
-  aplicacao();
-  verificaTimeoutRX();
+  //aplicacao();
+  //verificaTimeoutRX();
 
-  tick_serial();
+  //tick_serial();
+
+  if(++contTeste == 300)
+  {
+    contTeste = 0;
+    GPIO_WriteReverse(GPIOA, GPIO_PIN_3);
+  }
+
+  if(GPIO_ReadInputPin(GPIOD, GPIO_PIN_6))
+  {
+    GPIO_WriteLow(GPIOB, GPIO_PIN_4);
+    GPIO_WriteLow(GPIOB, GPIO_PIN_5);
+    if(desacopla == 0)
+    {
+      desacopla = 1;
+      contDesliga++;
+    }
+  }
+  else
+  {
+    desacopla = 0;
+    if(contDesliga > 10)
+    {
+      contDesliga = 0;
+      GPIO_WriteHigh(GPIOB, GPIO_PIN_5);
+    }
+
+
+    GPIO_WriteHigh(GPIOB, GPIO_PIN_4);
+  }
+
 }
 

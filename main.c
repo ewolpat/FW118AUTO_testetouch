@@ -60,14 +60,17 @@ main()
   GPIO_Config();
   timer1_config();
   enableInterrupts();
-  Init_uart();
-  setupInicial_MAQ();
+  //Init_uart();
+  //setupInicial_MAQ();
 
   GPIO_WriteHigh(GPIOA, GPIO_PIN_3);
 
+  GPIO_WriteHigh(GPIOB, GPIO_PIN_4);
+  GPIO_WriteHigh(GPIOB, GPIO_PIN_5);
+
 	while (1)
   {
-    controle_UART_TX();
+    //controle_UART_TX();
 	}
 
 }
@@ -199,7 +202,7 @@ void GPIO_Config(void)
      //GPIO_Init(GPIOD, GPIO_PIN_6, GPIO_MODE_OUT_PP_LOW_FAST);   //MOTOR 1
      //GPIO_Init(GPIOD, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_FAST);   //MOTOR 2
                 
-     GPIO_Init(GPIOD, GPIO_PIN_5, GPIO_MODE_OUT_PP_HIGH_FAST);    // TX
+     GPIO_Init(GPIOD, GPIO_PIN_5, GPIO_MODE_IN_PU_NO_IT);    // TX
      GPIO_Init(GPIOD, GPIO_PIN_6, GPIO_MODE_IN_PU_NO_IT);         // RX
      
      GPIO_Init(GPIOC, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_FAST);   //LED LADO ESQUERDO
