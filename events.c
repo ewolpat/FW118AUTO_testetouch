@@ -24,6 +24,15 @@ int contTeste;
 char desacopla;
 char contDesliga;
 
+int filtroTouchTimeout;
+int contFiltroLeTecla;
+int FiltroEstagio_0;
+int FiltroEstagio_1;
+int FiltroEstagio_2;
+char teclaAcionada;
+
+#define FILTRO_TARGET 3 // quantos pultos em 100 mili segundos
+
 
 void Timer1(void) // timer de 1 ms
 {
@@ -40,7 +49,53 @@ void Timer1(void) // timer de 1 ms
     GPIO_WriteReverse(GPIOA, GPIO_PIN_3);
   }
 
+  contFiltroLeTecla++;
   if(GPIO_ReadInputPin(GPIOD, GPIO_PIN_6))
+  {
+    filtroTouchTimeout = 0;
+    if(contFiltroLeTecla >= 0 && contFiltroLeTecla < 50)
+    {
+      FiltroEstagio_0++;
+    }
+    else if(contFiltroLeTecla >= 50 && contFiltroLeTecla < 100)
+    {
+      FiltroEstagio_1++;
+    }
+    else if(contFiltroLeTecla >= 100 && contFiltroLeTecla < 150)
+    {
+      FiltroEstagio_2++;
+    }
+    else
+    {
+      contFiltroLeTecla = 0;
+      FiltroEstagio_0 = 0;
+      FiltroEstagio_1 = 0;
+      FiltroEstagio_2 = 0;
+    }
+  }
+  else
+  {
+    filtroTouchTimeout++;
+    if(filtroTouchTimeout > 50)
+    {
+      filtroTouchTimeout = 0;
+      contFiltroLeTecla = 0;
+      FiltroEstagio_0 = 0;
+      FiltroEstagio_1 = 0;
+      FiltroEstagio_2 = 0;
+      teclaAcionada = 0;
+    }
+  }
+
+  if(FiltroEstagio_0 > FILTRO_TARGET &&
+     FiltroEstagio_1 > FILTRO_TARGET &&
+     FiltroEstagio_2 > FILTRO_TARGET)
+  {
+    teclaAcionada = 1;
+  }
+
+
+  if(teclaAcionada)
   {
     GPIO_WriteLow(GPIOB, GPIO_PIN_4);
     GPIO_WriteLow(GPIOB, GPIO_PIN_5);
