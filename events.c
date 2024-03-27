@@ -31,6 +31,9 @@ int FiltroEstagio_1;
 int FiltroEstagio_2;
 char teclaAcionada;
 
+char SAIDA;
+int contTempoDesligaSaida;
+
 #define FILTRO_TARGET 3 // quantos pultos em 100 mili segundos
 
 
@@ -42,6 +45,21 @@ void Timer1(void) // timer de 1 ms
   //verificaTimeoutRX();
 
   //tick_serial();
+
+  if(SAIDA)
+  {
+    GPIO_WriteHigh(GPIOC, GPIO_PIN_3);
+    ++contTempoDesligaSaida;
+    if(contTempoDesligaSaida > 3000)
+    {
+      SAIDA = 0;
+      GPIO_WriteLow(GPIOC, GPIO_PIN_3);
+    }
+  }
+  else
+  {
+    contTempoDesligaSaida = 0;
+  }
 
   if(++contTeste == 300)
   {
@@ -104,6 +122,8 @@ void Timer1(void) // timer de 1 ms
     {
       desacopla = 1;
       contDesliga++;
+
+      SAIDA = 1;
     }
   }
   else

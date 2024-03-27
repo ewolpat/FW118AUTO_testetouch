@@ -203,6 +203,8 @@ void GPIO_Config(void)
      
      GPIO_Init(GPIOC, GPIO_PIN_7, GPIO_MODE_OUT_PP_LOW_FAST);
 
+     GPIO_Init(GPIOC, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);
+
      
        
      //PCI 130
