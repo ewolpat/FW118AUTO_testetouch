@@ -50,7 +50,7 @@ void Timer1(void) // timer de 1 ms
   {
     GPIO_WriteHigh(GPIOC, GPIO_PIN_3);
     ++contTempoDesligaSaida;
-    if(contTempoDesligaSaida > 3000)
+    if(contTempoDesligaSaida > 700)
     {
       SAIDA = 0;
       GPIO_WriteLow(GPIOC, GPIO_PIN_3);
