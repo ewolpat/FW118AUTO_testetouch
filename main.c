@@ -63,10 +63,6 @@ main()
   //Init_uart();
   //setupInicial_MAQ();
 
-  GPIO_WriteHigh(GPIOA, GPIO_PIN_3);
-
-  GPIO_WriteHigh(GPIOB, GPIO_PIN_4);
-  GPIO_WriteHigh(GPIOB, GPIO_PIN_5);
 
 	while (1)
   {
@@ -201,16 +197,12 @@ void GPIO_Config(void)
      
      //GPIO_Init(GPIOD, GPIO_PIN_6, GPIO_MODE_OUT_PP_LOW_FAST);   //MOTOR 1
      //GPIO_Init(GPIOD, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_FAST);   //MOTOR 2
-                
-     GPIO_Init(GPIOD, GPIO_PIN_5, GPIO_MODE_IN_PU_NO_IT);    // TX
-     GPIO_Init(GPIOD, GPIO_PIN_6, GPIO_MODE_IN_PU_NO_IT);         // RX
+
+
+     GPIO_Init(GPIOA, GPIO_PIN_1, GPIO_MODE_IN_PU_NO_IT);
      
-     GPIO_Init(GPIOC, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_FAST);   //LED LADO ESQUERDO
-     GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);   //LED LADO DIREITO & TERMICO
-     
-     GPIO_Init(GPIOC, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);   //LED POTENCIA 1
-     GPIO_Init(GPIOB, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_FAST);   //LED POTENCIA 2
-     GPIO_Init(GPIOB, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_FAST);   //LED POTENCIA 3
+     GPIO_Init(GPIOC, GPIO_PIN_7, GPIO_MODE_OUT_PP_LOW_FAST);
+
      
        
      //PCI 130

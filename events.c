@@ -46,12 +46,14 @@ void Timer1(void) // timer de 1 ms
   if(++contTeste == 300)
   {
     contTeste = 0;
-    GPIO_WriteReverse(GPIOA, GPIO_PIN_3);
+    //GPIO_WriteReverse(GPIOC, GPIO_PIN_7);
   }
 
   contFiltroLeTecla++;
-  if(GPIO_ReadInputPin(GPIOD, GPIO_PIN_6))
+  if(!GPIO_ReadInputPin(GPIOA, GPIO_PIN_1))
   {
+    
+
     filtroTouchTimeout = 0;
     if(contFiltroLeTecla >= 0 && contFiltroLeTecla < 50)
     {
@@ -97,8 +99,7 @@ void Timer1(void) // timer de 1 ms
 
   if(teclaAcionada)
   {
-    GPIO_WriteLow(GPIOB, GPIO_PIN_4);
-    GPIO_WriteLow(GPIOB, GPIO_PIN_5);
+    GPIO_WriteHigh(GPIOC, GPIO_PIN_7);
     if(desacopla == 0)
     {
       desacopla = 1;
@@ -111,11 +112,8 @@ void Timer1(void) // timer de 1 ms
     if(contDesliga > 10)
     {
       contDesliga = 0;
-      GPIO_WriteHigh(GPIOB, GPIO_PIN_5);
+      GPIO_WriteLow(GPIOC, GPIO_PIN_7);
     }
-
-
-    GPIO_WriteHigh(GPIOB, GPIO_PIN_4);
   }
 
 }
